@@ -53,7 +53,7 @@ std::string GetCharFromMorse(std::string morse)
 	if(morse == "..--..")	return "?" ;
 	if(morse == ".-.-.-")	return "." ;
 	if(morse == "-..-.")	return "/" ;
-	if(morse == ".----.")	return "\"";
+	if(morse == ".----.")	return "\'";
 	if(morse == "-....-")	return "-" ;
 
 	if (morse == "-----")   return "0" ;
@@ -317,7 +317,8 @@ int main()
 				file.close();
 			}
 			TranslationMessage result = FromMorse(message);
-			std::cout << "\nLength: " << message.length() <<"\n";
+			std::cout << "\nLength: " << message.length() <<"\n\n";
+			std::cout << "Remorsive iterations: " << result.iteratios << "\n";
 			std::cout << "\nTranslation:\n\n";
 			std::cout << result.message << "\n\n";
 			std::cout << "This means that the encryption was ~" << message.length() / max(result.message.length(), 1) << " times longer than the actual message." << ((message.length() / max(result.message.length(), 1) > 1000000) ? " lol" : "") << "\n\n";
