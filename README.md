@@ -1,4 +1,7 @@
 # Remorse-Code
+
+## A joke program which can translate to and from multiple iterations of morse code
+
 As an example, the letter 'A' translated to morse code yields the combination: `.-`
 
 Similarly, the very very symbols that make up said combination, `.` and `-`, have combinations of their own. 
