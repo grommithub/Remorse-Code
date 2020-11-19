@@ -165,9 +165,6 @@ bool GetResolved(std::string morse)
 	return false;
 }
 
-/**
-Translates morsecode into normal characters. If the result is morse code it translates it again.
-*/
 
 
 struct TranslationMessage
@@ -176,6 +173,9 @@ struct TranslationMessage
 	std::string message;
 };
 
+/**
+Translates morsecode into normal characters. If the result is morse code it translates it again.
+*/
 TranslationMessage FromMorse(std::string morse, int iterations = 0)
 {
 	//remove_if(morse.begin(), morse.end(), isspace);
