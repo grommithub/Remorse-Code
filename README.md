@@ -4,7 +4,7 @@
 
 As an example, the letter 'A' translated to morse code yields the combination: `.-`
 
-Similarly, the very very symbols that make up said combination, `.` and `-`, have combinations of their own. 
+Similarly, the very symbols that make up said combination, `.` and `-`, have combinations of their own. 
 Thus, translating `.-` to morse code yields `.-.-.- -....-`. 
 
 So "A" translates to `.-` which translates to `.-.-.- -....-`. You can choose to reiterate this process as many times as you like.
