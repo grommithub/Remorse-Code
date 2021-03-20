@@ -41,6 +41,7 @@ std::string GetCharFromMorse(std::string morse)
 	if(morse == "-.--")		return "y" ;
 	if(morse == "--..")		return "z" ;
 
+
 	if (morse == ".--.-")	return "å" ;
 	if (morse == ".-.-")	return "ä" ; //Doesn't show up correctly in the console on my machine, may need to look into
 	if (morse == "---.")	return "ö" ;
@@ -55,6 +56,7 @@ std::string GetCharFromMorse(std::string morse)
 	if(morse == "-..-.")	return "/" ;
 	if(morse == ".----.")	return "\'";
 	if(morse == "-....-")	return "-" ;
+	if (morse == ".....")	return "#" ;
 
 	if (morse == "-----")   return "0" ;
 	if (morse == ".----")   return "1" ;
@@ -104,8 +106,8 @@ std::string GetMorseOfChar(char c)
 	case 'z':  return "--..";
 
 	case -122:  return ".--.-"; //å
-	case -124:  return ".-.-";	//ä
-	case -108:  return "---.";	//ö
+	case -124:  return ".-.-" ;	//ä
+	case -108:  return "---." ;	//ö
 
 	case '0': return "-----";
 	case '1': return ".----";
@@ -118,14 +120,15 @@ std::string GetMorseOfChar(char c)
 	case '8': return "---..";
 	case '9': return "----.";
 
-	case ' ':  return "/";
-	case ',':  return "--..--";
-	case '?':  return "..--..";
-	case '!':  return "-.-.--";
-	case '.':  return ".-.-.-";
-	case '/':  return "-..-.";
-	case '\'': return ".----.";
-	case '-': return "-....-";
+	case ' ' :  return "/";
+	case ',' :  return "--..--";
+	case '?' :  return "..--..";
+	case '!' :  return "-.-.--";
+	case '.' :  return ".-.-.-";
+	case '/' :  return "-..-.";
+	case '\'':  return ".----.";
+	case '-' :  return "-....-";
+	case '#' :  return "......";
 
 
 	default:
@@ -225,6 +228,38 @@ void ToClipboard(HWND hwnd, const std::string& s)
 	GlobalFree(hg);
 }
 
+/**
+Gets what is currently in the clipboard
+Source : https://stackoverflow.com/questions/14762456/getclipboarddatacf-text
+*/
+std::string GetClipboardText()
+{
+	// Try opening the clipboard
+	if (!OpenClipboard(nullptr))
+		return "";
+
+	// Get handle of clipboard object for ANSI text
+	HANDLE hData = GetClipboardData(CF_TEXT);
+	if (hData == nullptr)
+		return "";
+
+	// Lock the handle to get the actual text pointer
+	char* pszText = static_cast<char*>(GlobalLock(hData));
+	if (pszText == nullptr)
+		return "";
+
+	// Save text in a string class instance
+	std::string text(pszText);
+
+	// Release the lock
+	GlobalUnlock(hData);
+
+	// Release the clipboard
+	CloseClipboard();
+
+	return text;
+}
+
 
 int main()
 {
@@ -275,9 +310,12 @@ int main()
 			std::string result = ToMorse(message, times);
 			std::cout << result << "\n\n";
 
+			std::cout << "This message is " << result.length() << " characters long. "<< "\n\n";
+
 			std::cout << "To copy the message to the clipboard, enter Y\nEnter anything else to skip\n\n";
 			char response;
 			std::cin >> response;
+
 
 			if (std::tolower(response) == 'y')
 			{
@@ -289,15 +327,17 @@ int main()
 		{
 			std::cout << "Enter the message you would like decrypted:\n\n";
 			std::string message;
-			std::getline(std::cin, message);
-			
-			if (message.length() >= 4090)
+			if (GetClipboardText().length() > 4090)
 			{
+				notepadding:
+
 				message = "";
 
 				std::ofstream file;
 				file.open("ReallyLongMessage.txt", std::ofstream::trunc); //clearing file
 				file.close();
+
+
 
 				std::cout << "\nIt looks like your message is too long to fit in the console. Ambitious! \nPaste the message into the notepad that just popped up, save it and close." << std::endl;
 				system("notepad.exe ReallyLongMessage.txt");
@@ -316,6 +356,13 @@ int main()
 				file.open("ReallyLongMessage.txt", std::ofstream::trunc); //clearing file
 				file.close();
 			}
+			else
+			{
+				std::cout << "Enter the message you would like to decipher:\n\n";
+				std::getline(std::cin, message);
+				if (message.length() > 4090) goto notepadding;
+
+			}
 			TranslationMessage result = FromMorse(message);
 			std::cout << "\nLength: " << message.length() <<"\n\n";
 			std::cout << "Remorsive iterations: " << result.iteratios << "\n";
@@ -330,3 +377,4 @@ int main()
 		repeat = true;
 	}
 }
+
