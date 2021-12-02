@@ -14,6 +14,10 @@ std::string GetCharFromMorse(std::string morse)
 {
 	remove_if(morse.begin(), morse.end(), isspace); //remove whitespace
 
+	if(morse == ".-.-.-")	return "." ;
+	if(morse == "-....-")	return "-" ;
+	if(morse == "-..-.")	return "/" ;
+
 	if(morse == ".-")		return "a" ;
 	if(morse == "-...")		return "b" ;
 	if(morse == "-.-.")		return "c" ;
@@ -52,10 +56,7 @@ std::string GetCharFromMorse(std::string morse)
 	if(morse == "/")		return " " ;
 	if(morse == "--..--")	return "," ;
 	if(morse == "..--..")	return "?" ;
-	if(morse == ".-.-.-")	return "." ;
-	if(morse == "-..-.")	return "/" ;
 	if(morse == ".----.")	return "\'";
-	if(morse == "-....-")	return "-" ;
 	if (morse == ".....")	return "#" ;
 
 	if (morse == "-----")   return "0" ;
@@ -78,6 +79,10 @@ std::string GetMorseOfChar(char c)
 
 	switch (c)
 	{
+	case '.' :  return ".-.-.-";
+	case '-' :  return "-....-";
+	case '/' :  return "-..-.";
+
 	case 'a':  return ".-";
 	case 'b':  return "-...";
 	case 'c':  return "-.-.";
@@ -124,10 +129,7 @@ std::string GetMorseOfChar(char c)
 	case ',' :  return "--..--";
 	case '?' :  return "..--..";
 	case '!' :  return "-.-.--";
-	case '.' :  return ".-.-.-";
-	case '/' :  return "-..-.";
 	case '\'':  return ".----.";
-	case '-' :  return "-....-";
 	case '#' :  return "......";
 
 
