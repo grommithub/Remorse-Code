@@ -57,7 +57,7 @@ std::string GetCharFromMorse(std::string morse)
 	if(morse == "--..--")	return "," ;
 	if(morse == "..--..")	return "?" ;
 	if(morse == ".----.")	return "\'";
-	if (morse == ".....")	return "#" ;
+	if (morse == "......")	return "#" ;
 
 	if (morse == "-----")   return "0" ;
 	if (morse == ".----")   return "1" ;
@@ -152,7 +152,7 @@ std::string ToMorse(std::string message, int times = 0)
 	
 	//Recursively converts to morse
 
-	if (times > 0)
+	if (times > 1)
 		return ToMorse(morse, times - 1);
 	else return morse;
 }
