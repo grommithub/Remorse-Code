@@ -13,4 +13,4 @@ This program allows you to translate to and from Remorse Code with any number of
 
 This program is riddled with `system()` calls so probably don't run it on a government PC.
 
-[Output](https://cdn.discordapp.com/attachments/405128309069053957/779100521990324234/unknown.png)
+![Output](https://cdn.discordapp.com/attachments/405128309069053957/779100521990324234/unknown.png)
